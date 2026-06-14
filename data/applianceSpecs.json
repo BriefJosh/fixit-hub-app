@@ -1,0 +1,122 @@
+[
+  {
+    "category": "AC & HVAC",
+    "brand": "Daikin",
+    "model": "FTV25AXV14",
+    "weightKg": 8.5,
+    "capacity": "9,000 BTU/h (1 PK)",
+    "powerW": 720,
+    "dimensions": "770 x 195 x 295 mm (indoor unit)",
+    "isTypical": false
+  },
+  {
+    "category": "AC & HVAC",
+    "brand": "",
+    "model": "",
+    "weightKg": 9,
+    "capacity": "9,000 BTU/h (1 PK)",
+    "powerW": 750,
+    "dimensions": "800 x 200 x 300 mm (indoor unit)",
+    "isTypical": true
+  },
+  {
+    "category": "Refrigerator",
+    "brand": "Samsung",
+    "model": "RT29K5034S8",
+    "weightKg": 58,
+    "capacity": "293 L",
+    "powerW": 100,
+    "dimensions": "550 x 660 x 1780 mm",
+    "isTypical": false
+  },
+  {
+    "category": "Refrigerator",
+    "brand": "",
+    "model": "",
+    "weightKg": 60,
+    "capacity": "300 L",
+    "powerW": 120,
+    "dimensions": "600 x 650 x 1750 mm",
+    "isTypical": true
+  },
+  {
+    "category": "Washing Machine",
+    "brand": "LG",
+    "model": "T2108VSAM",
+    "weightKg": 38,
+    "capacity": "8 kg",
+    "powerW": 350,
+    "dimensions": "600 x 900 x 600 mm",
+    "isTypical": false
+  },
+  {
+    "category": "Washing Machine",
+    "brand": "",
+    "model": "",
+    "weightKg": 40,
+    "capacity": "8 kg",
+    "powerW": 380,
+    "dimensions": "600 x 900 x 600 mm",
+    "isTypical": true
+  },
+  {
+    "category": "Television",
+    "brand": "Samsung",
+    "model": "UA32T4003",
+    "weightKg": 4.3,
+    "capacity": "32 in",
+    "powerW": 45,
+    "dimensions": "726 x 421 x 81 mm",
+    "isTypical": false
+  },
+  {
+    "category": "Television",
+    "brand": "",
+    "model": "",
+    "weightKg": 5,
+    "capacity": "32 in",
+    "powerW": 60,
+    "dimensions": "730 x 430 x 85 mm",
+    "isTypical": true
+  },
+  {
+    "category": "Oven",
+    "brand": "Sharp",
+    "model": "R-222Y(S)",
+    "weightKg": 8,
+    "capacity": "20 L",
+    "powerW": 800,
+    "dimensions": "452 x 262 x 328 mm",
+    "isTypical": false
+  },
+  {
+    "category": "Oven",
+    "brand": "",
+    "model": "",
+    "weightKg": 9,
+    "capacity": "23 L",
+    "powerW": 850,
+    "dimensions": "460 x 270 x 340 mm",
+    "isTypical": true
+  },
+  {
+    "category": "Water Heater",
+    "brand": "Ariston",
+    "model": "Andris RS 15",
+    "weightKg": 14,
+    "capacity": "15 L",
+    "powerW": 1200,
+    "dimensions": "365 x 365 x 375 mm",
+    "isTypical": false
+  },
+  {
+    "category": "Water Heater",
+    "brand": "",
+    "model": "",
+    "weightKg": 15,
+    "capacity": "15 L",
+    "powerW": 1200,
+    "dimensions": "370 x 370 x 380 mm",
+    "isTypical": true
+  }
+]
