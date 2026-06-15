@@ -9,6 +9,7 @@ describe('Landing', () => {
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('heading', { level: 1, name: /Trusted repair/ })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /Pick your trouble/ })).toBeInTheDocument()
+    expect(screen.getByText(/pros working/i)).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: "Who's really fixing it?" })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: /Book a fix in three steps/ })).toBeInTheDocument()
     expect(screen.getByText('My Appliances')).toBeInTheDocument()
