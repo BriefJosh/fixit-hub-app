@@ -36,7 +36,14 @@ export default function MyAppliances() {
                     {appliance.model} · last serviced {appliance.lastService}
                   </p>
                 )}
-                <div className={`h-1.5 rounded-full mt-2 w-40 max-w-full ${needsAttention ? 'bg-red-100' : 'bg-mint-100'}`}>
+                <div
+                  className={`h-1.5 rounded-full mt-2 w-40 max-w-full ${needsAttention ? 'bg-red-100' : 'bg-mint-100'}`}
+                  role="progressbar"
+                  aria-valuenow={appliance.healthPercent}
+                  aria-valuemin={0}
+                  aria-valuemax={100}
+                  aria-label={`${appliance.name} health`}
+                >
                   <div
                     className={`h-full rounded-full ${needsAttention ? 'bg-red-400' : 'bg-brand'}`}
                     style={{ width: `${appliance.healthPercent}%` }}
