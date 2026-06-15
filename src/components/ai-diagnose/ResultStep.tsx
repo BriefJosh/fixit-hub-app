@@ -16,6 +16,7 @@ export default function ResultStep({ result, imagePreviewUrl, onReset }: ResultS
   const CategoryIcon = categoryMeta?.icon ?? ScanSearch
   const isLowConfidence = result.confidence < CONFIDENCE_THRESHOLD
   const confidencePercent = Math.round(result.confidence * 100)
+  const hasIdentification = Boolean(result.brand && result.model)
 
   return (
     <div className="max-w-3xl mx-auto px-6 py-16">
@@ -36,7 +37,7 @@ export default function ResultStep({ result, imagePreviewUrl, onReset }: ResultS
                 </span>
               )}
             </div>
-            {isLowConfidence ? (
+            {isLowConfidence || !hasIdentification ? (
               <p className="mt-2 text-brand-ink/70">
                 We&apos;re not fully confident yet — here&apos;s our best guess based on what&apos;s visible.
               </p>
@@ -108,6 +109,7 @@ export default function ResultStep({ result, imagePreviewUrl, onReset }: ResultS
               </p>
               <Link
                 to="/dashboard"
+                aria-label={`Book ${tech.name}`}
                 className="mt-4 inline-flex items-center gap-1 text-sm font-bold text-brand hover:text-brand-600"
               >
                 Book <ArrowRight className="w-4 h-4" />
