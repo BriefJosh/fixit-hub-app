@@ -14,7 +14,7 @@ export default function Hero() {
             <ShieldCheck className="w-4 h-4 text-sun" /> Verified & certified technicians only
           </span>
           <h1 className="font-poster uppercase leading-[0.9] tracking-tight text-6xl lg:text-7xl">
-            Trusted repair.<br />Fix it before<br />it <span className="hl">breaks.</span>
+            Trusted repair.<br />Fix it before<br />it <span className="hl text-brand-ink">breaks.</span>
           </h1>
           <p className="mt-6 text-white/85 text-lg max-w-md">
             Book a background-checked technician for your AC, fridge, washer and more — at a fixed price you see before you book.
