@@ -49,7 +49,7 @@ export default function UploadStep({ onAnalyze }: UploadStepProps) {
     <div className="max-w-2xl mx-auto px-6 py-16">
       <div className="text-center mb-8">
         <ScanSearch className="w-10 h-10 text-brand mx-auto" />
-        <h1 className="font-poster uppercase text-5xl sm:text-6xl tracking-wide mt-4">AI Diagnose</h1>
+        <h1 className="font-poster uppercase text-5xl sm:text-6xl tracking-wide mt-4">AI Diagnostics</h1>
         <p className="mt-3 text-brand-ink/60">
           Snap or upload a photo of the appliance and tell us what&apos;s wrong — we&apos;ll identify it and match
           you with the right technician.
