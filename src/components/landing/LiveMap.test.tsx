@@ -18,7 +18,7 @@ describe('LiveMap', () => {
     render(<LiveMap />)
 
     expect(screen.getByText(/Preview map/i)).toBeInTheDocument()
-    expect(screen.getByText('In progress')).toBeInTheDocument()
-    expect(screen.getByText('Completed')).toBeInTheDocument()
+    expect(screen.getByText('Live now')).toBeInTheDocument()
+    expect(screen.getByText('Just completed')).toBeInTheDocument()
   })
 })

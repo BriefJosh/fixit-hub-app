@@ -73,10 +73,10 @@ export default function LiveMap() {
       </span>
       <div className="absolute bottom-3 left-3 z-[1000] flex items-center gap-3 text-xs font-bold bg-brand-ink/80 text-white px-3 py-1.5 rounded-full border border-white/10">
         <span className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-brand inline-block" /> In progress
+          <span className="w-2.5 h-2.5 rounded-full bg-brand inline-block" /> Live now
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="w-2.5 h-2.5 rounded-full bg-sun inline-block" /> Completed
+          <span className="w-2.5 h-2.5 rounded-full bg-sun inline-block" /> Just completed
         </span>
       </div>
     </div>
