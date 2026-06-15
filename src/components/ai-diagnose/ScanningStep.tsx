@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { ScanSearch } from 'lucide-react'
 
 interface ScanningStepProps {
@@ -18,9 +18,14 @@ const MESSAGE_INTERVAL_MS = 700
 
 export default function ScanningStep({ imagePreviewUrl, onComplete }: ScanningStepProps) {
   const [messageIndex, setMessageIndex] = useState(0)
+  const onCompleteRef = useRef(onComplete)
 
   useEffect(() => {
-    const completeTimer = setTimeout(onComplete, SCAN_DURATION_MS)
+    onCompleteRef.current = onComplete
+  }, [onComplete])
+
+  useEffect(() => {
+    const completeTimer = setTimeout(() => onCompleteRef.current(), SCAN_DURATION_MS)
     const messageTimer = setInterval(() => {
       setMessageIndex((index) => (index + 1) % SCAN_MESSAGES.length)
     }, MESSAGE_INTERVAL_MS)
@@ -29,7 +34,7 @@ export default function ScanningStep({ imagePreviewUrl, onComplete }: ScanningSt
       clearTimeout(completeTimer)
       clearInterval(messageTimer)
     }
-  }, [onComplete])
+  }, [])
 
   return (
     <div className="max-w-2xl mx-auto px-6 py-16 text-center">
