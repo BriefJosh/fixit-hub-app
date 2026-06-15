@@ -5,3 +5,14 @@
 html {
   scroll-behavior: smooth;
 }
+
+.wave {
+  clip-path: ellipse(150% 100% at 50% 0%);
+}
+
+.hl {
+  background: #ffd21e;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  padding: 0 0.12em;
+}
