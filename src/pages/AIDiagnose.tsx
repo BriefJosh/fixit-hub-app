@@ -1,14 +1,57 @@
-import { ScanSearch } from 'lucide-react'
+import { useCallback, useEffect, useState } from 'react'
+import NavBar from '../components/layout/NavBar'
+import Footer from '../components/layout/Footer'
+import UploadStep from '../components/ai-diagnose/UploadStep'
+import ScanningStep from '../components/ai-diagnose/ScanningStep'
+import ResultStep from '../components/ai-diagnose/ResultStep'
+import { getDemoDiagnosis } from '../lib/aiDiagnose'
+import type { DiagnoseResult } from '../lib/aiDiagnose'
+
+type Step = 'upload' | 'scanning' | 'result'
 
 function AIDiagnose() {
+  const [step, setStep] = useState<Step>('upload')
+  const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
+  const [description, setDescription] = useState('')
+  const [result, setResult] = useState<DiagnoseResult | null>(null)
+
+  useEffect(() => {
+    if (!imagePreviewUrl) return
+    return () => URL.revokeObjectURL(imagePreviewUrl)
+  }, [imagePreviewUrl])
+
+  const handleAnalyze = (file: File, enteredDescription: string) => {
+    setImagePreviewUrl(URL.createObjectURL(file))
+    setDescription(enteredDescription)
+    setStep('scanning')
+  }
+
+  const handleScanComplete = useCallback(() => {
+    setResult(getDemoDiagnosis(description))
+    setStep('result')
+  }, [description])
+
+  const handleReset = () => {
+    setImagePreviewUrl(null)
+    setDescription('')
+    setResult(null)
+    setStep('upload')
+  }
+
   return (
-    <main className="min-h-screen bg-mint-50 flex items-center justify-center font-sans text-brand-ink">
-      <div className="text-center px-6">
-        <ScanSearch className="w-10 h-10 text-brand mx-auto" />
-        <h1 className="font-poster text-5xl sm:text-6xl tracking-wide mt-4">AI DIAGNOSE</h1>
-        <p className="mt-3 text-brand-ink/60">AI Diagnose flow — built in a later plan.</p>
-      </div>
-    </main>
+    <div className="font-sans text-brand-ink bg-white antialiased min-h-screen flex flex-col">
+      <NavBar />
+      <main className="flex-1 bg-mint-50">
+        {step === 'upload' && <UploadStep onAnalyze={handleAnalyze} />}
+        {step === 'scanning' && imagePreviewUrl && (
+          <ScanningStep imagePreviewUrl={imagePreviewUrl} onComplete={handleScanComplete} />
+        )}
+        {step === 'result' && result && imagePreviewUrl && (
+          <ResultStep result={result} imagePreviewUrl={imagePreviewUrl} onReset={handleReset} />
+        )}
+      </main>
+      <Footer />
+    </div>
   )
 }
 
