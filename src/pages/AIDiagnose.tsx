@@ -14,7 +14,8 @@ function AIDiagnose() {
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null)
   const [description, setDescription] = useState('')
   const [result, setResult] = useState<DiagnoseResult | null>(null)
-  const nextSeedIndexRef = useRef(Math.floor(Math.random() * DEMO_SEEDS.length))
+  const [initialSeedIndex] = useState(() => Math.floor(Math.random() * DEMO_SEEDS.length))
+  const nextSeedIndexRef = useRef(initialSeedIndex)
 
   useEffect(() => {
     if (!imagePreviewUrl) return
