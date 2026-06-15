@@ -16,3 +16,21 @@ html {
   -webkit-box-decoration-break: clone;
   padding: 0 0.12em;
 }
+
+.ticker {
+  animation: scroll 24s linear infinite;
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.grain {
+  background-image: radial-gradient(circle at 1px 1px, rgba(10, 26, 19, 0.05) 1px, transparent 0);
+  background-size: 20px 20px;
+}
