@@ -1,5 +1,5 @@
-import { useRef, useState } from 'react'
-import type { ChangeEvent, DragEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { ChangeEvent, DragEvent, MouseEvent } from 'react'
 import { ImagePlus, ScanSearch, UploadCloud } from 'lucide-react'
 
 interface UploadStepProps {
@@ -13,8 +13,13 @@ export default function UploadStep({ onAnalyze }: UploadStepProps) {
   const [isDragging, setIsDragging] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
 
+  useEffect(() => {
+    if (!previewUrl) return
+    return () => URL.revokeObjectURL(previewUrl)
+  }, [previewUrl])
+
   const handleFile = (selected: File | null) => {
-    if (!selected) return
+    if (!selected || !selected.type.startsWith('image/')) return
     setFile(selected)
     setPreviewUrl(URL.createObjectURL(selected))
   }
@@ -36,6 +41,10 @@ export default function UploadStep({ onAnalyze }: UploadStepProps) {
 
   const handleDragLeave = () => setIsDragging(false)
 
+  const handleZoneClick = (event: MouseEvent<HTMLDivElement>) => {
+    if (event.target !== inputRef.current) inputRef.current?.click()
+  }
+
   return (
     <div className="max-w-2xl mx-auto px-6 py-16">
       <div className="text-center mb-8">
@@ -51,7 +60,7 @@ export default function UploadStep({ onAnalyze }: UploadStepProps) {
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={() => inputRef.current?.click()}
+        onClick={handleZoneClick}
         className={`rounded-3xl border-2 border-dashed p-10 text-center cursor-pointer transition ${
           isDragging ? 'border-brand bg-mint-50' : 'border-mint-200 bg-white'
         }`}
@@ -71,7 +80,7 @@ export default function UploadStep({ onAnalyze }: UploadStepProps) {
           accept="image/*"
           capture="environment"
           onChange={handleInputChange}
-          className="hidden"
+          className="sr-only"
           aria-label="Upload appliance photo"
         />
       </div>
