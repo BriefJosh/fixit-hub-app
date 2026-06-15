@@ -1,14 +1,27 @@
-import { Wrench } from 'lucide-react'
+import NavBar from '../components/layout/NavBar'
+import Footer from '../components/layout/Footer'
+import Hero from '../components/landing/Hero'
+import Ticker from '../components/landing/Ticker'
+import ServicesGrid from '../components/landing/ServicesGrid'
+import TrustBand from '../components/landing/TrustBand'
+import HowItWorks from '../components/landing/HowItWorks'
+import MaintenanceLog from '../components/landing/MaintenanceLog'
+import CTA from '../components/landing/CTA'
 
 function Landing() {
   return (
-    <main className="min-h-screen bg-mint-50 flex items-center justify-center font-sans text-brand-ink">
-      <div className="text-center px-6">
-        <Wrench className="w-10 h-10 text-brand mx-auto" />
-        <h1 className="font-poster text-5xl sm:text-6xl tracking-wide mt-4">FIX-IT HUB</h1>
-        <p className="mt-3 text-brand-ink/60">Landing page — built in a later plan.</p>
-      </div>
-    </main>
+    <div className="font-sans text-brand-ink bg-white antialiased">
+      <NavBar />
+      <Hero />
+      <Ticker />
+      <ServicesGrid />
+      {/* Plan 3 inserts <LiveSection /> here, between Services and Trust */}
+      <TrustBand />
+      <HowItWorks />
+      <MaintenanceLog />
+      <CTA />
+      <Footer />
+    </div>
   )
 }
 
