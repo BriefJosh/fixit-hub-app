@@ -6,7 +6,7 @@ export default function AIPromo() {
     <section className="bg-brand-ink text-white rounded-3xl p-6 relative overflow-hidden">
       <div className="absolute -right-8 -bottom-8 w-32 h-32 rounded-full bg-brand/30 blur-2xl" />
       <span className="text-xs font-extrabold text-brand uppercase tracking-wide">AI diagnostic engine</span>
-      <h3 className="font-bold text-lg mt-2 leading-snug">Auto-diagnose via camera</h3>
+      <h2 className="font-extrabold text-lg mt-2 leading-snug">Auto-diagnose via camera</h2>
       <p className="text-sm text-white/60 mt-1">Upload a photo → AI spots the issue → matches a technician.</p>
       <Link
         to="/ai-diagnose"
