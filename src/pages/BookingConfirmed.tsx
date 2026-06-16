@@ -4,7 +4,7 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Send } from 'lucide-react'
 
-const DEFAULT_LOCATION: [number, number] = [-7.2756, 112.7961] // Tower 1 ITS fallback
+const DEFAULT_LOCATION: [number, number] = [-7.2849915, 112.793897] // Tower 1 ITS (Menara Sains)
 const ANIMATION_DURATION_MS = 45_000 // 45 seconds total
 
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
@@ -25,7 +25,7 @@ const AUTO_REPLIES = [
 ]
 
 function computeTechStart(userLoc: [number, number]): [number, number] {
-  return [userLoc[0] - 0.01, userLoc[1] - 0.01] // ~1.5km SW
+  return [userLoc[0] - 0.004, userLoc[1] - 0.004] // ~550m SW
 }
 
 async function fetchRoute(from: [number, number], to: [number, number]): Promise<[number, number][]> {
@@ -115,6 +115,10 @@ export default function BookingConfirmed() {
       techMarker.setLatLng(techStart)
 
       const route = await fetchRoute(techStart, userLoc)
+
+      // Gojek-style route line from tech to user
+      const routeLine = L.polyline(route, { color: '#15B877', weight: 4, opacity: 0.75 }).addTo(map)
+
       const stepCount = route.length
       const stepInterval = Math.max(100, Math.round(ANIMATION_DURATION_MS / stepCount))
 
@@ -124,11 +128,13 @@ export default function BookingConfirmed() {
         if (step >= stepCount) {
           clearInterval(intervalId!)
           intervalId = null
+          routeLine.remove()
           setArrived(true)
           setEta(0)
           return
         }
         techMarker.setLatLng(route[step])
+        routeLine.setLatLngs(route.slice(step))
         setEta(Math.max(0, Math.round((1 - step / stepCount) * 8)))
       }, stepInterval)
     })()
