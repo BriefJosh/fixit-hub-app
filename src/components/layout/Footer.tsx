@@ -1,15 +1,10 @@
-import { Wrench } from 'lucide-react'
-
 export default function Footer() {
   return (
     <footer className="bg-brand-ink text-white">
       <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-4 gap-8 text-sm">
         <div>
-          <div className="flex items-center gap-2.5 mb-3">
-            <span className="w-8 h-8 rounded-lg bg-brand grid place-items-center">
-              <Wrench className="w-4 h-4" />
-            </span>
-            <span className="font-extrabold">Fix-It Hub</span>
+          <div className="mb-3">
+            <img src="/logo/fih-logo-y.svg" alt="Fix-It Hub" className="h-7 w-auto" />
           </div>
           <p className="text-white/50">The trusted, AI-powered appliance repair platform in Indonesia.</p>
         </div>

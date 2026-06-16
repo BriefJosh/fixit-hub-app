@@ -3,9 +3,13 @@ import { describe, expect, it } from 'vitest'
 import Footer from './Footer'
 
 describe('Footer', () => {
-  it('renders the brand and tagline', () => {
+  it('renders the Fix-It Hub logo image', () => {
     render(<Footer />)
-    expect(screen.getByText('Fix-It Hub')).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: 'Fix-It Hub' })).toBeInTheDocument()
+  })
+
+  it('renders the tagline', () => {
+    render(<Footer />)
     expect(screen.getByText(/trusted, AI-powered appliance repair platform/)).toBeInTheDocument()
   })
 
