@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { categories } from '../../data/categories'
 
 export default function QuickCategories() {
@@ -8,12 +9,16 @@ export default function QuickCategories() {
         {categories.map((category) => {
           const Icon = category.icon
           return (
-            <div key={category.name} className="bg-white rounded-2xl p-4 text-center shadow-card">
+            <Link
+              key={category.id}
+              to={`/book/${category.id}`}
+              className="bg-white rounded-2xl p-4 text-center shadow-card hover:shadow-soft transition"
+            >
               <span className="w-11 h-11 mx-auto rounded-xl bg-mint-100 grid place-items-center">
                 <Icon className={`w-5 h-5 ${category.iconColor}`} />
               </span>
               <p className="text-xs font-bold mt-2">{category.name}</p>
-            </div>
+            </Link>
           )
         })}
       </div>
