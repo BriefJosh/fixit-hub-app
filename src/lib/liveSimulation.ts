@@ -24,8 +24,15 @@ export interface FeedItem {
 }
 
 const COMPLETION_THRESHOLD = 0.8
-const COORDINATE_SPREAD = 0.18
+const COORDINATE_SPREAD = 0.09
 const COMPLETED_COLOR = '#FFD21E'
+
+const LAT_BOUNDS: [number, number] = [-7.35, -7.20]
+const LNG_BOUNDS: [number, number] = [112.66, 112.79]
+
+function clamp(value: number, bounds: [number, number]): number {
+  return Math.max(bounds[0], Math.min(bounds[1], value))
+}
 
 export function pickRandomItem<T>(items: readonly T[]): T {
   return items[Math.floor(Math.random() * items.length)]
@@ -54,8 +61,8 @@ export function createJobMarker(id: string): JobMarker {
 
   return {
     id,
-    lat: LIVE_CENTER[0] + randomOffset(COORDINATE_SPREAD),
-    lng: LIVE_CENTER[1] + randomOffset(COORDINATE_SPREAD),
+    lat: clamp(LIVE_CENTER[0] + randomOffset(COORDINATE_SPREAD), LAT_BOUNDS),
+    lng: clamp(LIVE_CENTER[1] + randomOffset(COORDINATE_SPREAD), LNG_BOUNDS),
     category: category.name,
     color: completed ? COMPLETED_COLOR : category.color,
     area: pickRandomItem(LIVE_AREAS),

@@ -117,6 +117,18 @@ describe('liveSimulation', () => {
     })
   })
 
+  describe('createJobMarker land bounds', () => {
+    it('always places markers within Surabaya land bounds', () => {
+      for (let i = 0; i < 100; i++) {
+        const marker = createJobMarker(`bound-test-${i}`)
+        expect(marker.lat).toBeGreaterThanOrEqual(-7.35)
+        expect(marker.lat).toBeLessThanOrEqual(-7.20)
+        expect(marker.lng).toBeGreaterThanOrEqual(112.66)
+        expect(marker.lng).toBeLessThanOrEqual(112.79)
+      }
+    })
+  })
+
   describe('createFeedItem', () => {
     it('returns a feed item with a valid shape', () => {
       const item = createFeedItem('feed-1')
