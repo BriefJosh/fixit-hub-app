@@ -4,10 +4,8 @@ import L from 'leaflet'
 import 'leaflet/dist/leaflet.css'
 import { Send } from 'lucide-react'
 
-const USER_LOCATION: [number, number] = [-7.2756, 112.7961]
-const TECH_START: [number, number] = [-7.2856, 112.7861]
-const ANIMATION_STEPS = 45
-const ANIMATION_INTERVAL_MS = 1000
+const DEFAULT_LOCATION: [number, number] = [-7.2756, 112.7961] // Tower 1 ITS fallback
+const ANIMATION_DURATION_MS = 45_000 // 45 seconds total
 
 const TILE_URL = 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
 const TILE_ATTRIBUTION =
@@ -26,8 +24,35 @@ const AUTO_REPLIES = [
   'Thanks for letting me know!',
 ]
 
-function lerp(a: number, b: number, t: number) {
-  return a + (b - a) * t
+function computeTechStart(userLoc: [number, number]): [number, number] {
+  return [userLoc[0] - 0.01, userLoc[1] - 0.01] // ~1.5km SW
+}
+
+async function fetchRoute(from: [number, number], to: [number, number]): Promise<[number, number][]> {
+  try {
+    const url = `https://router.project-osrm.org/route/v1/driving/${from[1]},${from[0]};${to[1]},${to[0]}?overview=full&geometries=geojson`
+    const res = await fetch(url)
+    if (!res.ok) throw new Error('osrm error')
+    const data = await res.json()
+    const coords: [number, number][] = data.routes[0].geometry.coordinates
+    return coords.map(([lng, lat]) => [lat, lng]) // GeoJSON is [lng,lat], Leaflet wants [lat,lng]
+  } catch {
+    return [from, to] // fallback: straight line
+  }
+}
+
+function getUserLocation(): Promise<[number, number]> {
+  return new Promise((resolve) => {
+    if (!navigator.geolocation) {
+      resolve(DEFAULT_LOCATION)
+      return
+    }
+    navigator.geolocation.getCurrentPosition(
+      (pos) => resolve([pos.coords.latitude, pos.coords.longitude]),
+      () => resolve(DEFAULT_LOCATION),
+      { timeout: 5000 },
+    )
+  })
 }
 
 function timestamp() {
@@ -58,13 +83,8 @@ export default function BookingConfirmed() {
     const container = mapRef.current
     if (!container) return
 
-    const map = L.map(container, {
-      center: USER_LOCATION,
-      zoom: 15,
-      zoomControl: false,
-      scrollWheelZoom: false,
-    })
-
+    // Synchronous map init with DEFAULT_LOCATION
+    const map = L.map(container, { center: DEFAULT_LOCATION, zoom: 15, zoomControl: false, scrollWheelZoom: false })
     L.tileLayer(TILE_URL, { subdomains: 'abcd', attribution: TILE_ATTRIBUTION, maxZoom: 19 }).addTo(map)
 
     const userIcon = L.divIcon({
@@ -73,7 +93,7 @@ export default function BookingConfirmed() {
       iconSize: [16, 16],
       iconAnchor: [8, 8],
     })
-    L.marker(USER_LOCATION, { icon: userIcon }).addTo(map)
+    const userMarker = L.marker(DEFAULT_LOCATION, { icon: userIcon }).addTo(map)
 
     const techIcon = L.divIcon({
       className: '',
@@ -81,22 +101,40 @@ export default function BookingConfirmed() {
       iconSize: [14, 14],
       iconAnchor: [7, 7],
     })
-    const techMarker = L.marker(TECH_START, { icon: techIcon }).addTo(map)
+    const techMarker = L.marker(computeTechStart(DEFAULT_LOCATION), { icon: techIcon }).addTo(map)
 
-    let step = 0
-    const interval = setInterval(() => {
-      step += 1
-      const t = step / ANIMATION_STEPS
-      techMarker.setLatLng([lerp(TECH_START[0], USER_LOCATION[0], t), lerp(TECH_START[1], USER_LOCATION[1], t)])
-      setEta(Math.max(0, Math.round((1 - t) * 8)))
-      if (step >= ANIMATION_STEPS) {
-        clearInterval(interval)
-        setArrived(true)
-      }
-    }, ANIMATION_INTERVAL_MS)
+    let intervalId: ReturnType<typeof setInterval> | null = null
+
+    // Async: get real location, fetch route, start animation
+    ;(async () => {
+      const userLoc = await getUserLocation()
+      userMarker.setLatLng(userLoc)
+      map.setView(userLoc, 15)
+
+      const techStart = computeTechStart(userLoc)
+      techMarker.setLatLng(techStart)
+
+      const route = await fetchRoute(techStart, userLoc)
+      const stepCount = route.length
+      const stepInterval = Math.max(100, Math.round(ANIMATION_DURATION_MS / stepCount))
+
+      let step = 0
+      intervalId = setInterval(() => {
+        step++
+        if (step >= stepCount) {
+          clearInterval(intervalId!)
+          intervalId = null
+          setArrived(true)
+          setEta(0)
+          return
+        }
+        techMarker.setLatLng(route[step])
+        setEta(Math.max(0, Math.round((1 - step / stepCount) * 8)))
+      }, stepInterval)
+    })()
 
     return () => {
-      clearInterval(interval)
+      if (intervalId !== null) clearInterval(intervalId)
       map.remove()
     }
   }, [])
