@@ -21,4 +21,10 @@ describe('categories', () => {
       expect(category.priceFrom).toMatch(/^Rp \d+k$/)
     }
   })
+
+  it('gives every category a non-empty id in kebab-case', () => {
+    for (const category of categories) {
+      expect(category.id).toMatch(/^[a-z]+(-[a-z]+)*$/)
+    }
+  })
 })

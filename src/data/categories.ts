@@ -2,6 +2,7 @@ import type { LucideIcon } from 'lucide-react'
 import { Droplets, Microwave, Refrigerator, Tv, WashingMachine, Wind } from 'lucide-react'
 
 export interface ServiceCategory {
+  id: string
   name: string
   icon: LucideIcon
   iconColor: string
@@ -11,6 +12,7 @@ export interface ServiceCategory {
 
 export const categories: ServiceCategory[] = [
   {
+    id: 'ac-hvac',
     name: 'AC & HVAC',
     icon: Wind,
     iconColor: 'text-brand',
@@ -18,6 +20,7 @@ export const categories: ServiceCategory[] = [
     priceFrom: 'Rp 150k',
   },
   {
+    id: 'refrigerator',
     name: 'Refrigerator',
     icon: Refrigerator,
     iconColor: 'text-blue-500',
@@ -25,6 +28,7 @@ export const categories: ServiceCategory[] = [
     priceFrom: 'Rp 120k',
   },
   {
+    id: 'washing-machine',
     name: 'Washing Machine',
     icon: WashingMachine,
     iconColor: 'text-purple-500',
@@ -32,6 +36,7 @@ export const categories: ServiceCategory[] = [
     priceFrom: 'Rp 130k',
   },
   {
+    id: 'television',
     name: 'Television',
     icon: Tv,
     iconColor: 'text-amber-500',
@@ -39,6 +44,7 @@ export const categories: ServiceCategory[] = [
     priceFrom: 'Rp 100k',
   },
   {
+    id: 'oven',
     name: 'Oven',
     icon: Microwave,
     iconColor: 'text-red-400',
@@ -46,6 +52,7 @@ export const categories: ServiceCategory[] = [
     priceFrom: 'Rp 110k',
   },
   {
+    id: 'water-heater',
     name: 'Water Heater',
     icon: Droplets,
     iconColor: 'text-sun',
