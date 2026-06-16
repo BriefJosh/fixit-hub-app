@@ -1,4 +1,5 @@
 import { BadgeCheck, Star } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import { technicians } from '../../data/technicians'
 
 const FEATURED_COUNT = 3
@@ -39,13 +40,12 @@ export default function RecommendedTechnicians() {
               </span>
               <span className="font-bold text-brand">from {tech.priceFrom}</span>
             </div>
-            <button
-              type="button"
-              aria-label={`Book ${tech.name}`}
-              className="mt-4 w-full text-sm font-bold text-white bg-brand py-2 rounded-lg hover:bg-brand-600"
+            <Link
+              to={`/book/${tech.serviceId}`}
+              className="mt-4 w-full text-sm font-bold text-white bg-brand py-2 rounded-lg hover:bg-brand-600 text-center block"
             >
               Book
-            </button>
+            </Link>
           </div>
         ))}
       </div>

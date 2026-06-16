@@ -12,6 +12,7 @@ export interface Technician {
   yearsExperience: number
   badges: string[]
   priceFrom: string
+  serviceId: string
 }
 
 export const technicians: Technician[] = [
@@ -29,6 +30,7 @@ export const technicians: Technician[] = [
     yearsExperience: 8,
     badges: ['Daikin Certified', 'Top Rated'],
     priceFrom: 'Rp 150.000',
+    serviceId: 'ac-hvac',
   },
   {
     id: 'sari-rahma',
@@ -44,6 +46,7 @@ export const technicians: Technician[] = [
     yearsExperience: 6,
     badges: ['Samsung Partner', 'Fast reply'],
     priceFrom: 'Rp 120.000',
+    serviceId: 'refrigerator',
   },
   {
     id: 'dimas-lesmana',
@@ -59,6 +62,7 @@ export const technicians: Technician[] = [
     yearsExperience: 5,
     badges: ['LG Certified', 'Top Rated'],
     priceFrom: 'Rp 130.000',
+    serviceId: 'washing-machine',
   },
   {
     id: 'putri-anjani',
@@ -74,6 +78,7 @@ export const technicians: Technician[] = [
     yearsExperience: 4,
     badges: ['Electronics Specialist', 'Fast reply'],
     priceFrom: 'Rp 100.000',
+    serviceId: 'television',
   },
   {
     id: 'rendra-saputra',
@@ -89,5 +94,6 @@ export const technicians: Technician[] = [
     yearsExperience: 7,
     badges: ['Multi-brand Certified', 'Top Rated'],
     priceFrom: 'Rp 140.000',
+    serviceId: 'water-heater',
   },
 ]
