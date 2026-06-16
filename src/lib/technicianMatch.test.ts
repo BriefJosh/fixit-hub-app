@@ -16,6 +16,7 @@ const baseTech = (overrides: Partial<Technician>): Technician => ({
   yearsExperience: 1,
   badges: [],
   priceFrom: 'Rp 100.000',
+  serviceId: 'ac-hvac',
   ...overrides,
 })
 
